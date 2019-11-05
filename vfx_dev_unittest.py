@@ -18,6 +18,7 @@ try:
                 matrix[y][x] = 3.14
 
     assert matrix[0][0], 3.14
+    assert matrix.translation() == imath.V3f(3.14, 3.14, 3.14)
 except Exception as e:
     print 'non load imath'
 
@@ -31,7 +32,7 @@ except Exception as e:
     print 'non load numpy'
 
 
-#  load opencv
+#  load OpenCV
 try:
     import cv2
     img = cv2.imread('bg.jpg', 0)
@@ -40,6 +41,7 @@ try:
 except Exception as e:
     print 'non load OpenCV'
 
+#  load OpenEXR
 try:
     import OpenEXR
     import other_imath
