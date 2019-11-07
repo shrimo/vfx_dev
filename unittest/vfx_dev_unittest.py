@@ -10,6 +10,7 @@ try:
     assert os.path.isfile(iFileName)
     alembic_test = alembic.Abc.IArchive(iFileName)
     assert alembic_test.getTop().children[0].getName() == 'group1'
+    print ('alembic ok')
 except Exception as e:
     print 'non load alembic'
 
@@ -23,6 +24,7 @@ try:
 
     assert matrix[0][0], 3.14
     assert matrix.translation() == imath.V3f(3.14, 3.14, 3.14)
+    print ('imath ok')
 except Exception as e:
     print 'non load imath'
 
@@ -31,6 +33,7 @@ try:
     import numpy
     A = numpy.array([1., 2.])
     assert numpy.allclose(A, [1., 2.])
+    print ('numpy ok')
 
 except Exception as e:
     print 'non load numpy'
@@ -46,6 +49,7 @@ try:
     assert img_blur[0][0][0] == 75
     cv2.imwrite('blur_bg.jpg', img_blur)
     assert os.path.isfile('blur_bg.jpg')
+    print ('cv2 ok')
 
 except Exception as e:
     print 'non load OpenCV'
@@ -83,6 +87,7 @@ try:
     # rexr = numpy.fromstring(redstr, dtype=float)
 
     # print rexr
+    print ('OpenEXR ok')
 
 except Exception as e:
     print 'non load OpenEXR'
