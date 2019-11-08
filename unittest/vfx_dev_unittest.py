@@ -47,7 +47,11 @@ try:
     img_blur = cv2.blur(img, (15, 15))
     assert img[0][0][0] == 96
     assert img_blur[0][0][0] == 75
-    cv2.imwrite('blur_bg.jpg', img_blur)
+    if not os.path.isfile('blur_bg.jpg'):
+        cv2.imwrite('blur_bg.jpg', img_blur)
+        print('write blur_bg.jpg')
+    else:
+        print("file already exists 01")
     assert os.path.isfile('blur_bg.jpg')
     print('cv2 ok')
 
@@ -56,14 +60,14 @@ except Exception as e:
 
 
 def imp_cv():
-    if os.path.isfile('blur_bg2.jpg') != True:
+    if not os.path.isfile('blur_bg2.jpg'):
         import cv2
         img = cv2.imread('bg.jpg')
         img_blur = cv2.blur(img, (10, 10))
         cv2.imwrite('blur_bg2.jpg', img_blur)
         print('write blur_bg2.jpg')
     else:
-        print("file already exists")
+        print("file already exists 02")
     return True
 
 
@@ -78,10 +82,17 @@ try:
     import EImath
     import matplotlib
 
+    o_exr_dict = None
+
     assert os.path.isfile('Rec709.exr')
-    openexr_test = OpenEXR.InputFile('Rec709.exr')
-    o_exr_dict = openexr_test.header()
-    out = o_exr_dict['displayWindow'].max
+    if os.path.isfile('Rec709.exr'):
+        openexr_test = OpenEXR.InputFile('Rec709.exr')
+        o_exr_dict = openexr_test.header()
+        out = o_exr_dict['displayWindow'].max
+        print 'header: ', o_exr_dict['owner']
+
+    s = dict()
+    assert type(o_exr_dict) == type(s)
     assert out.x == 609
     assert out.y == 405
     # 4 number - PIZ_COMPRESSION '''PIZ_COMPRESSION = 4'''
@@ -95,6 +106,9 @@ try:
     assert EImath.Compression.DWAA_COMPRESSION == 8
     assert EImath.Compression(
         EImath.Compression.DWAA_COMPRESSION) == openexr_test2.header()['compression']
+    o_exr_dict2 = openexr_test2.header()
+    print 'nuke: ', o_exr_dict2['nuke/version']
+    print 'compression: ', o_exr_dict2['compression']
 
     # p_type = EImath.PixelType(EImath.PixelType.FLOAT)
     # dw = openexr_test2.header()['dataWindow']
