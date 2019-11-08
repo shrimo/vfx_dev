@@ -12,7 +12,7 @@ try:
     assert alembic_test.getTop().children[0].getName() == 'group1'
     print('alembic ok')
 except Exception as e:
-    print('non load alembic')
+    print('>>>> non load alembic')
 
 # load imath
 try:
@@ -26,7 +26,7 @@ try:
     assert matrix.translation() == imath.V3f(3.14, 3.14, 3.14)
     print('imath ok')
 except Exception as e:
-    print('non load imath')
+    print('>>>> non load imath')
 
 #  load numpy
 try:
@@ -36,7 +36,7 @@ try:
     print('numpy ok')
 
 except Exception as e:
-    print('non load numpy')
+    print('>>>> non load numpy')
 
 
 #  load OpenCV
@@ -52,11 +52,12 @@ try:
         print('write blur_bg.jpg')
     else:
         print("file already exists 01")
+        print('remove write blur_bg.jpg')
     assert os.path.isfile('blur_bg.jpg')
     print('cv2 ok')
 
 except Exception as e:
-    print('non load OpenCV')
+    print('>>>> non load OpenCV')
 
 
 def imp_cv():
@@ -66,15 +67,17 @@ def imp_cv():
         img_blur = cv2.blur(img, (10, 10))
         cv2.imwrite('blur_bg2.jpg', img_blur)
         print('write blur_bg2.jpg')
+        return True
     else:
         print("file already exists 02")
-    return True
+        return False
 
 
 try:
     assert imp_cv() == True
 except Exception as e:
-    print('non load OpenCV2')
+    print('>>>> non load OpenCV2')
+    print('remove write blur_bg2.jpg')
 
 #  load OpenEXR
 try:
@@ -89,7 +92,7 @@ try:
         openexr_test = OpenEXR.InputFile('Rec709.exr')
         o_exr_dict = openexr_test.header()
         out = o_exr_dict['displayWindow'].max
-        print 'header: ', o_exr_dict['owner']
+        print ('header:'), o_exr_dict['owner']
 
     s = dict()
     assert type(o_exr_dict) == type(s)
@@ -107,8 +110,8 @@ try:
     assert EImath.Compression(
         EImath.Compression.DWAA_COMPRESSION) == openexr_test2.header()['compression']
     o_exr_dict2 = openexr_test2.header()
-    print 'nuke: ', o_exr_dict2['nuke/version']
-    print 'compression: ', o_exr_dict2['compression']
+    print ('nuke:'), o_exr_dict2['nuke/version']
+    print ('compression:'), o_exr_dict2['compression']
 
     # p_type = EImath.PixelType(EImath.PixelType.FLOAT)
     # dw = openexr_test2.header()['dataWindow']
@@ -122,4 +125,4 @@ try:
     print('OpenEXR ok')
 
 except Exception as e:
-    print('non load OpenEXR')
+    print('>>>> non load OpenEXR')
