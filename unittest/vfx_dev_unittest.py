@@ -10,9 +10,9 @@ try:
     assert os.path.isfile(iFileName)
     alembic_test = alembic.Abc.IArchive(iFileName)
     assert alembic_test.getTop().children[0].getName() == 'group1'
-    print ('alembic ok')
+    print('alembic ok')
 except Exception as e:
-    print 'non load alembic'
+    print('non load alembic')
 
 # load imath
 try:
@@ -24,19 +24,19 @@ try:
 
     assert matrix[0][0], 3.14
     assert matrix.translation() == imath.V3f(3.14, 3.14, 3.14)
-    print ('imath ok')
+    print('imath ok')
 except Exception as e:
-    print 'non load imath'
+    print('non load imath')
 
 #  load numpy
 try:
     import numpy
     A = numpy.array([1., 2.])
     assert numpy.allclose(A, [1., 2.])
-    print ('numpy ok')
+    print('numpy ok')
 
 except Exception as e:
-    print 'non load numpy'
+    print('non load numpy')
 
 
 #  load OpenCV
@@ -49,10 +49,28 @@ try:
     assert img_blur[0][0][0] == 75
     cv2.imwrite('blur_bg.jpg', img_blur)
     assert os.path.isfile('blur_bg.jpg')
-    print ('cv2 ok')
+    print('cv2 ok')
 
 except Exception as e:
-    print 'non load OpenCV'
+    print('non load OpenCV')
+
+
+def imp_cv():
+    if os.path.isfile('blur_bg2.jpg') != True:
+        import cv2
+        img = cv2.imread('bg.jpg')
+        img_blur = cv2.blur(img, (10, 10))
+        cv2.imwrite('blur_bg2.jpg', img_blur)
+        print('write blur_bg2.jpg')
+    else:
+        print("file already exists")
+    return True
+
+
+try:
+    assert imp_cv() == True
+except Exception as e:
+    print('non load OpenCV2')
 
 #  load OpenEXR
 try:
@@ -87,7 +105,7 @@ try:
     # rexr = numpy.fromstring(redstr, dtype=float)
 
     # print rexr
-    print ('OpenEXR ok')
+    print('OpenEXR ok')
 
 except Exception as e:
-    print 'non load OpenEXR'
+    print('non load OpenEXR')
