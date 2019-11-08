@@ -75,7 +75,7 @@ except Exception as e:
 #  load OpenEXR
 try:
     import OpenEXR
-    import other_imath
+    import EImath
     import matplotlib
 
     assert os.path.isfile('Rec709.exr')
@@ -85,18 +85,18 @@ try:
     assert out.x == 609
     assert out.y == 405
     # 4 number - PIZ_COMPRESSION '''PIZ_COMPRESSION = 4'''
-    assert 4 == other_imath.Compression.PIZ_COMPRESSION
-    assert other_imath.Compression(
-        other_imath.Compression.PIZ_COMPRESSION) == o_exr_dict['compression']
+    assert 4 == EImath.Compression.PIZ_COMPRESSION
+    assert EImath.Compression(
+        EImath.Compression.PIZ_COMPRESSION) == o_exr_dict['compression']
 
     # 8 number - DWAA_COMPRESSION
     assert os.path.isfile('exr_test.exr')
     openexr_test2 = OpenEXR.InputFile('exr_test.exr')
-    assert other_imath.Compression.DWAA_COMPRESSION == 8
-    assert other_imath.Compression(
-        other_imath.Compression.DWAA_COMPRESSION) == openexr_test2.header()['compression']
+    assert EImath.Compression.DWAA_COMPRESSION == 8
+    assert EImath.Compression(
+        EImath.Compression.DWAA_COMPRESSION) == openexr_test2.header()['compression']
 
-    # p_type = other_imath.PixelType(other_imath.PixelType.FLOAT)
+    # p_type = EImath.PixelType(EImath.PixelType.FLOAT)
     # dw = openexr_test2.header()['dataWindow']
     # exr_size = (dw.max.x - dw.min.x + 1, dw.max.y - dw.min.y + 1)
     # print exr_size, openexr_test2.header()['channels'].keys()[0]
