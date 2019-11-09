@@ -57,7 +57,7 @@ try:
     print('cv2 ok')
 
 except Exception as e:
-    print('>>>> non load OpenCV')
+    print('>>>> non load OpenCV 01')
 
 
 def imp_cv():
@@ -67,15 +67,18 @@ def imp_cv():
         img_blur = cv2.blur(img, (10, 10))
         cv2.imwrite('blur_bg2.jpg', img_blur)
         print('write blur_bg2.jpg')
-        re
-    else:
+        return True
+    elif os.path.isfile('blur_bg2.jpg'):
         print("file already exists 02")
+        return True
+    else:
+        return False
 
 
 try:
     assert imp_cv() == True
 except Exception as e:
-    print('>>>> non load OpenCV2')
+    print('>>>> non load OpenCV2 02')
 
 #  load OpenEXR
 try:
