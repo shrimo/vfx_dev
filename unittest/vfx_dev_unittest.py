@@ -22,7 +22,8 @@ try:
         for x in range(0, 4):
             matrix[y][x] = 3.14
 
-    assert matrix[0][0], 3.14
+    assert type(matrix[0][0]) == type(float(3.14))
+    # print (type(matrix[0][0])), matrix[0][0]
     assert matrix.translation() == imath.V3f(3.14, 3.14, 3.14)
     print('imath ok')
 except Exception as e:
@@ -52,7 +53,6 @@ try:
         print('write blur_bg.jpg')
     else:
         print("file already exists 01")
-        print('remove write blur_bg.jpg')
     assert os.path.isfile('blur_bg.jpg')
     print('cv2 ok')
 
@@ -67,17 +67,15 @@ def imp_cv():
         img_blur = cv2.blur(img, (10, 10))
         cv2.imwrite('blur_bg2.jpg', img_blur)
         print('write blur_bg2.jpg')
-        return True
+        re
     else:
         print("file already exists 02")
-        return False
 
 
 try:
     assert imp_cv() == True
 except Exception as e:
     print('>>>> non load OpenCV2')
-    print('remove write blur_bg2.jpg')
 
 #  load OpenEXR
 try:
@@ -92,7 +90,7 @@ try:
         openexr_test = OpenEXR.InputFile('Rec709.exr')
         o_exr_dict = openexr_test.header()
         out = o_exr_dict['displayWindow'].max
-        print ('header:'), o_exr_dict['owner']
+        print 'header: ', o_exr_dict['owner']
 
     s = dict()
     assert type(o_exr_dict) == type(s)
@@ -110,8 +108,8 @@ try:
     assert EImath.Compression(
         EImath.Compression.DWAA_COMPRESSION) == openexr_test2.header()['compression']
     o_exr_dict2 = openexr_test2.header()
-    print ('nuke:'), o_exr_dict2['nuke/version']
-    print ('compression:'), o_exr_dict2['compression']
+    print 'nuke: ', o_exr_dict2['nuke/version']
+    print 'compression: ', o_exr_dict2['compression']
 
     # p_type = EImath.PixelType(EImath.PixelType.FLOAT)
     # dw = openexr_test2.header()['dataWindow']
