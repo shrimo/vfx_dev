@@ -132,7 +132,7 @@ def create_boxes(shapes, group_name, shape_name, on_face):
 def start():
     # shapes = cmds.ls(selection=True, shapes=True, dagObjects=True)
     # set_pos_vertex(get_shapes(), 1)
-    # set_random_vertex(get_shapes(), 1)
-    create_boxes(get_shapes(), 'boxes', 'v_', 0)
+    set_random_vertex(get_shapes(), 1)
+    # create_boxes(get_shapes(), 'boxes', 'v_', 0)
 
 
