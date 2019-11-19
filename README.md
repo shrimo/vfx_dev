@@ -10,6 +10,6 @@
 
 [Maya CommandsPython](https://help.autodesk.com/cloudhelp/2018/CHS/Maya-Tech-Docs/CommandsPython/index.html)
 
-[Maya API 2](https://help.autodesk.com/view/MAYAUL/2019/ENU/?guid=__py_ref_index_html)
+[Maya API 2](https://help.autodesk.com/view/MAYAUL/2019/ENU/)
 
 [Qt for Python](https://doc.qt.io/qtforpython/)
