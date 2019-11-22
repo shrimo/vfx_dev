@@ -57,6 +57,7 @@ def get_faces(shapes):
 
     return face_data
 
+
 def get_vertex(shapes):
     vertex_data = []
     spc = om2.MSpace.kWorld
@@ -92,6 +93,7 @@ def set_pos_vertex(shapes, up_y):
 
         vtx.updateSurface()
 
+
 def set_random_vertex(shapes, up_y):
     spc = om2.MSpace.kWorld
     for shape in shapes:
@@ -102,11 +104,12 @@ def set_random_vertex(shapes, up_y):
         while not vtx.isDone():
             vtx_pos = vtx.position(spc)
             print 'vertex:'+str(vtx.index()), vtx_pos.y
-            vtx_pos.y += random.uniform(0, up_y)
+            vtx_pos.z += random.uniform(0, up_y)
             vtx.setPosition(vtx_pos, spc)
             vtx.next()
 
         vtx.updateSurface()
+
 
 def create_boxes(shapes, group_name, shape_name, on_face):
     if on_face:
@@ -119,20 +122,21 @@ def create_boxes(shapes, group_name, shape_name, on_face):
         if face.face_index & 1:
             cmds.select(face.face_path, add=True)
             p_name = shape_name + str(face.face_index)
-            cmds.polyCube(n=p_name) # create polyCube name by p_ + face index
-            cmds.setAttr(p_name+'.scale', 0.5, 0.5, 0.5)
+            cmds.polyCube(n=p_name)  # create polyCube name by p_ + face index
+            cmds.setAttr(p_name+'.scale', 0.3, 0.3, 0.3)
             if on_face:
-                cmds.setAttr(p_name+'.translate', face.face_center[0], face.face_center[1], face.face_center[2])
+                cmds.setAttr(
+                    p_name+'.translate', face.face_center[0], face.face_center[1], face.face_center[2])
             else:
-                cmds.setAttr(p_name+'.translate', face.vertex.x, face.vertex.y, face.vertex.z)
+                cmds.setAttr(p_name+'.translate', face.vertex.x,
+                             face.vertex.y, face.vertex.z)
             cmds.select(all=True)
             cmds.group(p_name, parent=group_name)
             cmds.select(all=True)
 
+
 def start():
     # shapes = cmds.ls(selection=True, shapes=True, dagObjects=True)
     # set_pos_vertex(get_shapes(), 1)
-    set_random_vertex(get_shapes(), 1)
-    # create_boxes(get_shapes(), 'boxes', 'v_', 0)
-
-
+    # set_random_vertex(get_shapes(), 1)
+    create_boxes(get_shapes(), 'boxes', 'v_', 0)
