@@ -28,7 +28,7 @@ class snx:
         ax2.plot(t, sin(2*2*pi*t))
         ax2.grid(True)
         ax2.set_ylim((-2, 2))
-        l = ax2.set_xlabel('Hi mom')
+        l = ax2.set_xlabel('sinus')
         l.set_color('g')
         l.set_fontsize('large')
         show()
