@@ -13,3 +13,5 @@
 [Maya API 2](https://help.autodesk.com/view/MAYAUL/2019/ENU/)
 
 [Qt for Python](https://doc.qt.io/qtforpython/)
+
+[Using the nuke.math Python](http://www.nukepedia.com/written-tutorials/using-the-nukemath-python-module-to-do-vector-and-matrix-operations?showall=)
