@@ -29,8 +29,7 @@ def light_group_comp(node, light_group):
         merge_group_next['Achannels'].setValue('rgb')
         merge_group_next['Bchannels'].setValue(light_group[i])
         dot = nuke.createNode('Dot')
-        dot.setInput(0, merge_group_next)
-        merge_group_start = dot
+        dot.setInput(0, merge_group_next)        
     return True
 
 
