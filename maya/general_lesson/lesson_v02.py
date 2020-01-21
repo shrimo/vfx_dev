@@ -43,7 +43,7 @@ def create_sin_boxes(group_name, shape_name, a, b, c):
 
 def start():
     # shapes = cmds.ls(selection=True, shapes=True, dagObjects=True)
-    # m_name = 'motion_01'
-    # cmds.polyCube(n=m_name)
-    # print set_key_frame(m_name, 5, 0.2, 2)
-    create_sin_boxes('boxes', 'sin', 10, 0.3, 1)
+    m_name = 'motion_01'
+    cmds.polyCube(n=m_name)
+    print set_key_frame(m_name, 10, 0.3, 1)
+    # create_sin_boxes('boxes', 'sin', 10, 0.3, 1)
