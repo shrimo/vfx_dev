@@ -10,23 +10,18 @@ import time
 def read_exr(filename, group_name, shape_name, scale):
     pt = amg_imath.PixelType(amg_imath.PixelType.FLOAT)
     exr_file = OpenEXR.InputFile(filename)
-    cmds.group(em=True, name=group_name)
 
     # read RGB channel
     all_pos = []
-
     start_get_time = time.time()
-    for i, c in enumerate('RGB'):
+    for c in 'RGB':
         position_str = exr_file.channel(c, pt)
         position = array.array('f', position_str).tolist()
-        pos = []
-        for p in position:
-            if p != 0.0:
-                pos.append(p * scale)
-        all_pos.append(pos)
+        all_pos.append([val * scale for val in position if val != 0.0 in position])
     end_get_time = time.time()
 
     # create object
+    cmds.group(em=True, name=group_name)
     start_create_time = time.time()
     for i in range(len(all_pos[0])):
         p_name = shape_name + '_' + str(i)
@@ -41,5 +36,5 @@ def read_exr(filename, group_name, shape_name, scale):
 
 
 def start():
-    exr_file='//home/v.lavrentev/project/class/vfx_dev/openexr/position.exr'
+    exr_file = '//home/v.lavrentev/project/class/vfx_dev/openexr/position.exr'
     read_exr(exr_file, 'boxes', 'sphere', 10)
