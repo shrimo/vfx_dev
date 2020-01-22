@@ -1,9 +1,9 @@
 #! /cg/Nuke11.1v3/libnuke-11.1.3.so -nx
-#write_info Write1 file:"/home/v.lavrentev/project/class/vfx_dev/openexr/position.exr" format:"512 512 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (linear)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+#write_info Write1 file:"/home/v.lavrentev/project/class/vfx_dev/openexr/position.exr" format:"256 256 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (linear)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
 version 11.1 v3
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="1" y="0" w="2558" h="1385" screen="0">
+    <window x="0" y="0" w="2558" h="1385" screen="0">
         <splitter orientation="1">
             <split size="1821"/>
             <dock id="" activePageId="DAG.1" focus="true">
@@ -64,12 +64,42 @@ CheckerBoard2 {
  inputs 0
  name CheckerBoard1
  xpos -48
- ypos -346
+ ypos -536
+}
+Dot {
+ name Dot2
+ xpos -14
+ ypos -413
+}
+set Nc4d6560 [stack 0]
+Sphere {
+ radius 0.25
+ name Sphere1
+ xpos -48
+ ypos -331
+}
+push $Nc4d6560
+Dot {
+ name Dot3
+ xpos -110
+ ypos -413
 }
 Cube {
  name Cube1
+ xpos -144
+ ypos -366
+}
+Dot {
+ name Dot4
+ xpos -110
+ ypos -286
+}
+Switch {
+ inputs 2
+ which 1
+ name Switch1
  xpos -48
- ypos -257
+ ypos -290
 }
 TransformGeo {
  rotate {0 45 45}
@@ -101,15 +131,23 @@ Shuffle {
  name Shuffle1
  label "\[value in]"
  xpos -48
- ypos 7
+ ypos 9
+}
+Reformat {
+ type scale
+ scale 0.5
+ black_outside true
+ name Reformat1
+ xpos -48
+ ypos 47
 }
 Write {
  file /home/v.lavrentev/project/class/vfx_dev/openexr/position.exr
  file_type exr
- version 1
+ version 5
  name Write1
  xpos -48
- ypos 99
+ ypos 109
  addUserKnob {20 custom}
  addUserKnob {22 revealInFinder l "reveal in finder" -STARTLINE}
 }
@@ -118,9 +156,10 @@ Read {
  file /home/v.lavrentev/project/class/vfx_dev/openexr/position.exr
  format "512 512 0 0 512 512 1 square_512"
  origset true
+ version 7
  name Read1
  xpos 349
- ypos -168
+ ypos -167
  addUserKnob {20 custom}
  addUserKnob {22 revealInFinder l "reveal in finder" -STARTLINE}
 }
@@ -132,11 +171,12 @@ PositionToPoints2 {
  pointSize 10
  name PositionToPoints1
  xpos 349
- ypos -58
+ ypos -50
 }
 Viewer {
  frame 1
  frame_range 1-100
+ colour_sample_bbox {0.0546875 -0.05078125 0.05859375 -0.046875}
  name Viewer1
  xpos -241
  ypos 99
