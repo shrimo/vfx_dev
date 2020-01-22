@@ -17,3 +17,5 @@
 [Using the nuke.math Python](http://www.nukepedia.com/written-tutorials/using-the-nukemath-python-module-to-do-vector-and-matrix-operations?showall=)
 
 [Python doc ibm](https://www.ibm.com/developerworks/ru/library/l-python_part_1/)
+
+[OpenEXR](https://excamera.com/articles/26/doc/index.html)
