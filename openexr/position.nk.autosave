@@ -1,9 +1,9 @@
 #! /cg/Nuke11.1v3/libnuke-11.1.3.so -nx
-#write_info Write1 file:"/home/v.lavrentev/project/class/vfx_dev/openexr/position.exr" format:"512 512 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (linear)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
+#write_info Write1 file:"/home/v.lavrentev/project/class/vfx_dev/openexr/position.exr" format:"256 256 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (linear)" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"Nuke"
 version 11.1 v3
 define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 <layout version="1.0">
-    <window x="1" y="0" w="2558" h="1385" screen="0">
+    <window x="0" y="0" w="2558" h="1385" screen="0">
         <splitter orientation="1">
             <split size="1821"/>
             <dock id="" activePageId="DAG.1">
@@ -43,27 +43,6 @@ Root {
  int16Lut sRGB
  logLut Cineon
  floatLut linear
-}
-Read {
- inputs 0
- file /home/v.lavrentev/project/class/vfx_dev/openexr/position.exr
- format "512 512 0 0 512 512 1 square_512"
- origset true
- name Read1
- xpos 349
- ypos -168
- addUserKnob {20 custom}
- addUserKnob {22 revealInFinder l "reveal in finder" -STARTLINE}
-}
-PositionToPoints2 {
- display textured
- render_mode textured
- P_channel rgb
- detail 1
- pointSize 10
- name PositionToPoints1
- xpos 349
- ypos -58
 }
 Camera2 {
  inputs 0
@@ -125,6 +104,8 @@ Shuffle {
  ypos 9
 }
 Reformat {
+ type scale
+ scale 0.5
  black_outside true
  name Reformat1
  xpos -48
@@ -133,17 +114,43 @@ Reformat {
 Write {
  file /home/v.lavrentev/project/class/vfx_dev/openexr/position.exr
  file_type exr
- version 2
+ version 3
  name Write1
  xpos -48
- ypos 106
+ ypos 109
  addUserKnob {20 custom}
  addUserKnob {22 revealInFinder l "reveal in finder" -STARTLINE}
 }
+Read {
+ inputs 0
+ file /home/v.lavrentev/project/class/vfx_dev/openexr/position.exr
+ format "512 512 0 0 512 512 1 square_512"
+ origset true
+ version 4
+ name Read1
+ xpos 349
+ ypos -173
+ addUserKnob {20 custom}
+ addUserKnob {22 revealInFinder l "reveal in finder" -STARTLINE}
+}
+set N6cf7e80 [stack 0]
+PositionToPoints2 {
+ display textured
+ render_mode textured
+ P_channel rgb
+ detail 1
+ pointSize 10
+ name PositionToPoints1
+ xpos 349
+ ypos -51
+}
+push $N6cf7e80
 Viewer {
  frame 1
  frame_range 1-100
+ colour_sample_bbox {0.0546875 -0.05078125 0.05859375 -0.046875}
  name Viewer1
+ selected true
  xpos -241
  ypos 99
 }

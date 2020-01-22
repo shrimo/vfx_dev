@@ -2,7 +2,7 @@
 
 import OpenEXR
 import amg_imath
-import numpy
+import array
 
 
 def read_exr(filename):
@@ -12,17 +12,20 @@ def read_exr(filename):
     size = (dw.max.x - dw.min.x + 1, dw.max.y - dw.min.y + 1)
 
     # read RGB channel
-    channel = 'RGB'
-    position_str = {}
-    position = {}
-    for c in channel:
-        position_str[c] = exr_file.channel(c, pt)
-        position[c] = numpy.fromstring(position_str[c], dtype=numpy.float32)
-        position[c].shape = (size[1], size[0])  # Numpy arrays are (row, col)
-    
-    print position['R'][270, 243]
-        
-    
+    pos_x = []
+    pos_y = []
+    pos_z = []
+    for c in 'RGB':
+        position_str = exr_file.channel(c, pt)
+        position = array.array('f', position_str).tolist()
+        for pos in position:
+            if pos != 0.0:
+                if c == 'R':
+                    pos_x.append(pos)
+                if c == 'G':
+                    pos_y.append(pos)
+                if c == 'B':
+                    pos_z.append(pos)
 
 
 exr_file = '//home/v.lavrentev/project/class/vfx_dev/openexr/position.exr'
