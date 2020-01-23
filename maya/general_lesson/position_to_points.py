@@ -20,18 +20,18 @@ def read_exr(filename, group_name, shape_name, scale):
         pos.append([val * scale for val in position if val != 0.0 in position])
     end_get_time = time.time()
 
-    # create object
+    # create objects
     cmds.group(em=True, name=group_name)
     start_create_time = time.time()
     for i in range(len(pos[0])):
         p_name = shape_name + '_' + str(i)
         cmds.polyCube(n=p_name)
         cmds.setAttr(p_name + '.translate', pos[0][i], pos[1][i], pos[2][i])
-        cmds.group(p_name, parent=group_name)
+        cmds.parent(p_name, group_name)        
     end_create_time = time.time()
 
-    print"--- {} P time ---".format(end_get_time - start_get_time)
-    print"--- {} Create time ---".format(end_create_time - start_create_time)
+    print"--- {} Get P time ---".format(end_get_time - start_get_time)
+    print"--- {} Create objects time ---".format(end_create_time - start_create_time)
 
 
 def start():
