@@ -3,7 +3,9 @@ import threading
 
 
 def create_track():
-    # create transfrom node and set animation
+    """
+    Return a transform node
+    """
     t_node = nuke.createNode('Transform')
     k = t_node['translate']
     k.setAnimated()
@@ -20,11 +22,11 @@ def get_track_data(filepath):
             offset = int(fp.readline().split('\n')[0]) # frame offset
             frame_range = int(fp.readline().split('\n')[0]) # frame range (time)
             k, t_node = create_track() # create transform node for track
-            progIncr = 100.0 / tracks_count
+            prog_incr = 100.0 / tracks_count
             if task.isCancelled():
                 nuke.executeInMainThread(nuke.message, args=('Aborted',))
                 return
-            task.setProgress(int(block * progIncr)) # indicator for progress bar
+            task.setProgress(int(block * prog_incr)) # indicator for progress bar
             for frame in range(frame_range):
                 track = fp.readline().split(' ') # read track data number track, X, Y
                 X = float(track[1]) - t_node['center'].getValue()[0] # move X by cetner
