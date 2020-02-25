@@ -131,7 +131,8 @@ def create_boxes(shapes, group_name, shape_name, on_face):
                 cmds.setAttr(p_name+'.translate', face.vertex.x,
                              face.vertex.y, face.vertex.z)
             cmds.select(all=True)
-            cmds.group(p_name, parent=group_name)
+            cmds.parent(p_name, group_name) 
+            # cmds.group(p_name, parent=group_name)
             cmds.select(all=True)
 
 
