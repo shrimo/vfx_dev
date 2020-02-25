@@ -58,14 +58,11 @@ def create_sin_boxes(group_name, shape_name, a, b, c):
 def create_sphere_boxes(group_name, shape_name, r, cube_size, amount):
     if object_check(group_name):
         group_name = group_name + str(uuid.uuid4()).split('-')[-1]
-        print group_name
     if object_check(shape_name):
         shape_name = shape_name + str(uuid.uuid4()).split('-')[-1]
-        print shape_name
     cmds.group(em=True, name=group_name)
     for amt in xrange(1, amount):
         p_name = shape_name + '_' + str(amt)
-        print p_name
         # Computing to build a sphere
         theta = random.uniform(0, 360)
         phi = 90 * (1 - math.sqrt(random.uniform(0, 1)))
