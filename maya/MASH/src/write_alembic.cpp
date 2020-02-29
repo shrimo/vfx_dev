@@ -1,3 +1,6 @@
+// /home/shrimo/lib/alembic-master/lib/Alembic/AbcGeom/Tests
+
+
 #include <Python.h>
 #include <iostream>
 #include <string>
@@ -40,10 +43,10 @@ namespace py = boost::python;
 namespace fs = boost::filesystem;
 #define API extern "C" BOOST_SYMBOL_EXPORT
 class MASH_Point;
-using AlembicDict = map<int, vector<MASH_Point>>;
-// using AlembicVector = vector<MASH_Point>;
+// using AlembicDict = map<int, vector<MASH_Point>>;
+using AlembicVector = vector<MASH_Point>;
 
-const string __version__("1.1.1b");
+const string __version__("1.1.1c");
 const float PI180 = 3.1415926535897932384626433832795 / 180.0;
 inline float radian(float deg)
 {
@@ -174,8 +177,8 @@ string eraseSubStr(string mainStr, const string & toErase)
 class Write_Alembic{
     private:
     vector<float> M_in;
-    int ind_key, tsidx;
-    vector<string> obj_list;
+    // int ind_key, tsidx;
+    int tsidx;
 
     Abc::OArchive outArchive;
     AbcGeom::OObject outTop;
@@ -215,8 +218,8 @@ class Write_Alembic{
     }
     void make_abc_tree(vector<string> &obj_list)
     {
-        // maya_message("make abc tree");
-        // obj_list = _obj_list;
+        maya_message("make abc tree");
+        maya_message(to_string(obj_list.size()));
         for (int i = 0; i<obj_list.size(); i++)
         {
             positions.push_back( vector<Imath::V3f>() );
@@ -233,36 +236,42 @@ class Write_Alembic{
             arb_index.push_back(Abc::OInt32ArrayProperty(arb_params[i], "index", tsidx) );
             out_psamp.push_back(AbcGeom::OPointsSchema::Sample());
         }
+        // maya_message(to_string(iids.size()));
     }
-    void clear_mash()
+    void clear_mash(vector<string> &obj_list)
     {       
         for (int i = 0; i<obj_list.size(); i++)
         {
             positions[i].clear();
-            iids[i].clear();
+            iids.clear();
             mcontainer[i].clear();
             idx[i].clear();
         }     
     }
-    void get_mash_data(AlembicDict abc_dict)
+    void get_mash_data(AlembicVector &abc_vect)
     {        
-        for (auto &obj: abc_dict)
+        maya_message("get_mash_data start");
+        for (auto &obj: abc_vect)
         {
-            ind_key = obj.second[0].obj_index;                    
-            iids[ind_key].push_back(obj.first);
-            positions[ind_key].push_back(obj.second[0].position);
-            idx[ind_key].push_back(ind_key);
+            // ind_key = obj.obj_index;
+            // maya_message(to_string(obj.obj_index));
+            maya_message("x:" + to_string(obj.position.x) + " y:" + to_string(obj.position.y) + " z:" + to_string(obj.position.z));            
+            // iids[obj.obj_index].push_back(obj.obj_index);
+            // positions[obj.obj_index].push_back(obj.position);
+            // idx[obj.obj_index].push_back(obj.obj_index);
             
-            for (auto &mtx : obj.second[0].float_out)
-            {
-                mcontainer[ind_key].push_back(mtx);
-            }            
+            // for (auto &mtx : obj.float_out)
+            // {
+            //     mcontainer[obj.obj_index].push_back(mtx);
+            // }            
         }
+        maya_message("get_mash_data end");
     }
 
-    void write_abc()
+    void write_abc(vector<string> &obj_list)
     {
         maya_message("write abc Start");
+        maya_message(to_string(obj_list.size()));
         for (int i = 0; i<obj_list.size(); i++){        
             out_psamp[i].setIds(iids[i]);
             out_psamp[i].setPositions(positions[i]);
@@ -340,11 +349,11 @@ API py::object mash2abc(py::tuple args, py::dict kw)
         MVectorArray scale_pp = inputPointsData.getVectorData("scale");
         MDoubleArray index_pp = inputPointsData.getDoubleData("objectIndex");
 
-        unsigned int array_size = position_pp.length();    
+        unsigned int array_size = position_pp.length();
         maya_message("frame:" + to_string(frame));
         float t[3], r[3], s[3];
-        AlembicDict abc_dict;
-        // vector<MASH_Point> abc_vector;
+        // AlembicDict abc_dict;
+        AlembicVector abc_vector;
 
 
         for (int i = 0; i<array_size; i++)
@@ -352,14 +361,14 @@ API py::object mash2abc(py::tuple args, py::dict kw)
             int index = (int)index_pp[i];
 
             MASH_Point m_point(index, position_pp[i], rotation_pp[i], scale_pp[i]);
-            abc_dict[i].push_back(m_point);
-            // abc_vector.push_back(m_point);
-            // maya_message(to_string(abc_vector.size()));
+            // abc_dict[i].push_back(m_point);
+            abc_vector.push_back(m_point);
         }
         
-        wa.get_mash_data(abc_dict);
-        wa.write_abc();
-        wa.clear_mash();
+        maya_message(to_string(abc_vector.size()));
+        wa.get_mash_data(abc_vector);
+        wa.write_abc(obj_list);
+        wa.clear_mash(obj_list);
     }
 
     // m_time.setValue(start_frame);
@@ -395,5 +404,3 @@ API py::object maya_play(py::tuple args, py::dict kw)
     out.append("-> CurrentTime");    
     return out;
 }
-
-
