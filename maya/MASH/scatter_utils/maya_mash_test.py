@@ -23,7 +23,7 @@ import maya.OpenMaya as om
 
 # from amg.system import navigator
 import imath
-module_path = '/home/shrimo/project/rnd-master/amg_scatter_utils'
+module_path = '/home/shrimo/Desktop/course/git/vfx_dev/maya/MASH/scatter_utils'
 if module_path not in sys.path:
     sys.path.append(module_path)
 
