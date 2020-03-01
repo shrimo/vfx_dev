@@ -21,7 +21,6 @@ import maya.cmds as cmds
 import MASH.api as mapi
 import maya.OpenMaya as om
 
-# from amg.system import navigator
 import imath
 module_path = '/home/shrimo/Desktop/course/git/vfx_dev/maya/MASH/scatter_utils'
 if module_path not in sys.path:

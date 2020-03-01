@@ -61,6 +61,7 @@ def check_faceset(obj):
 
 
 def copy_object(i_obj, o_obj, animation, root, skip_node):
+
     i_props = i_obj.getProperties()
     o_props = o_obj.getProperties()
     copy_props(i_props, o_props, animation)
@@ -72,8 +73,8 @@ def copy_object(i_obj, o_obj, animation, root, skip_node):
         i_child_name = i_child.getName()
         if i_child_name in skip_node:
             continue
-        if i_child_name == root:
-            i_child_name = 'mdl'
+        # if i_child_name == root:
+        #     i_child_name = 'mdl'
         oChild = alembic.Abc.OObject(
             o_obj,
             i_child_name.lower(),
@@ -82,8 +83,8 @@ def copy_object(i_obj, o_obj, animation, root, skip_node):
 
 
 def main():
-    i_path = '/home/v.lavrentev/project/alembic/alembic_separation/geo/tree_v01_noUDIM/tree_v01_noUDIM.abc'
-    o_path = "/home/v.lavrentev/project/alembic/alembic_separation/geo/separation/bark_Mat_mdl_anima_on.abc"
+    i_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_in.abc'
+    o_path = "/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_out.abc"
 
     if not os.path.isfile(i_path):
         print 'No file:', i_path
@@ -99,8 +100,8 @@ def main():
     i_top = i_archive.getTop()
     root = i_top.getChild(0).getName()
 
-    skip_list = ['bark_Mat', 'leaf_Mat', 'roots_Mat']
-    # skip_list = ['leaf_Mat']
+    skip_list = ['pCone1', 'pCube1', 'pSphere1']
+    # skip_list = ['pTorus1']
 
     skip_node_list = []
     for skip in skip_list:
@@ -116,6 +117,5 @@ def main():
     print 'time: ', end - start
 
 
-main()
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
