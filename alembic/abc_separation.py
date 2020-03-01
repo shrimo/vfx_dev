@@ -83,8 +83,8 @@ def copy_object(i_obj, o_obj, animation, root, skip_node):
 
 
 def main():
-    i_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_in.abc'
-    o_path = "/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_out.abc"
+    i_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_03_in.abc'
+    o_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_03_out.abc'
 
     if not os.path.isfile(i_path):
         print 'No file:', i_path
@@ -100,7 +100,7 @@ def main():
     i_top = i_archive.getTop()
     root = i_top.getChild(0).getName()
 
-    skip_list = ['pCone1', 'pCube1', 'pSphere1']
+    skip_list = ['pcone1', 'ptorus1']
     # skip_list = ['pTorus1']
 
     skip_node_list = []
@@ -116,6 +116,6 @@ def main():
     print 'Separation successful'
     print 'time: ', end - start
 
-
+# main()
 if __name__ == '__main__':
     main()
