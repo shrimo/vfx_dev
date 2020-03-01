@@ -2,25 +2,24 @@ import sys
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import alembic
+import types
 
-# def list_nodes(i_obj, abc_nodes = []):
-#     abc_nodes.append(str(i_obj))
-#     for index in xrange(i_obj.getNumChildren()):
-#         i_child = i_obj.getChild(index)
-#         list_nodes(i_child, abc_nodes)
-#     return abc_nodes
 
-def list_nodes(i_obj, abc_nodes = []):
-    abc_nodes.append(str(i_obj))
+def abc_tree(i_obj, tree_list={}):
     for index in xrange(i_obj.getNumChildren()):
-        i_child = i_obj.getChild(index)
-        list_nodes(i_child, abc_nodes)
-    return abc_nodes
+        child = i_obj.getChild(index)
+        tree_list[i_obj.getName()] = child.getName()
+        abc_tree(child, tree_list)
+    return tree_list
 
-def list_abc(i_path):
+
+def get_abc_tree(i_path):
     i_archive = alembic.Abc.IArchive(i_path)
     i_archive.getTop().getName()
-    return list_nodes(i_archive.getTop())
+    tree_dict = abc_tree(i_archive.getTop())
+    del tree_dict['ABC']
+    return tree_dict
+
 
 class ListAlembic(QDialog):
 
@@ -33,37 +32,43 @@ class ListAlembic(QDialog):
         self.l1 = QLabel("Alembic object tree")
         self.button = QPushButton("Reload")
 
+        # get_abc_tree(self.alembic_file)
+
         # create Tree View
         self.abc_list = QTreeView()
         self.model = QStandardItemModel()
-        self.addItems(self.model, list_abc(self.alembic_file))
+        # self.load_tree()
         self.abc_list.setModel(self.model)
+        self._populateTree(get_abc_tree(self.alembic_file), self.model)
         # Create layout and add widgets
         layout = QVBoxLayout()
         layout.addWidget(self.l1)
         layout.addWidget(self.abc_list)
         layout.addWidget(self.button)
-        # self.load_tree()
-        
+
         # Set dialog layout
         self.setLayout(layout)
         # Add button signal to greetings slot
         self.button.clicked.connect(self.load_abc)
 
-    def load_tree(self):
-        abc_tree = list_abc(self.alembic_file)
-        parent = QStandardItem('root')
-        for branch in abc_tree:
-            # print branch
-            parent.appendRow(QStandardItem(branch))
-        self.model.appendRow(parent)
+    def _populateTree(self, children, parent):
+        for child in sorted(children):
+            child_item = QStandardItem(child)
+            parent.appendRow(child_item)
+            if isinstance(children, types.DictType):
+                self._populateTree(children[child], child_item)
 
-    def addItems(self, parent, elements):
-        for child in elements:
-            item = QStandardItem(child)
-            parent.appendRow(item)
-    
-    # Open alembic file 
+    # def load_tree(self):
+    #     abc_tree = get_abc_tree(self.alembic_file)
+    #     parent = QStandardItem('root')
+    #     for branch in abc_tree:
+    #         item = QStandardItem(branch)
+    #         item.appendRow(QStandardItem(item))
+    #     parent.appendRow(item)
+    #     self.model.appendRow(parent)
+
+    # Open alembic file
+
     def load_abc(self):
         # for i in range(3):
         fname = QFileDialog.getOpenFileName(self, 'Open *. abc file', '/home')
