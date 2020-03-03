@@ -1,4 +1,5 @@
 import sys
+from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import alembic
@@ -6,6 +7,9 @@ import types
 
 
 def abc_tree(i_obj):
+    '''
+    create dict by alembic tree
+    '''
     tree_dict = {}
     for index in xrange(i_obj.getNumChildren()):
         child = i_obj.getChild(index)
@@ -14,18 +18,25 @@ def abc_tree(i_obj):
 
 
 def get_abc_tree(i_path):
+    '''
+    Load alembic file and get top level objet
+    '''
     i_archive = alembic.Abc.IArchive(str(i_path))
     i_archive.getTop().getName()
     tree_dict = abc_tree(i_archive.getTop())
     return tree_dict
 
 
-class ListAlembic(QDialog):
-
+class ListAlembic(QWidget):
+    '''
+    Create GUI for alembic file tree view
+    '''
     def __init__(self, parent=None):
         super(ListAlembic, self).__init__(parent)
         # Create widgets
         self.resize(300, 500)
+        self.setStyleSheet("color: #dedede; background-color: #212121")
+        self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
         self.alembic_file = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_list.abc'
         self.setWindowTitle("Alembic tree")
         self.l1 = QLabel(self.alembic_file.split('/')[-1])
@@ -35,6 +46,7 @@ class ListAlembic(QDialog):
         self.model = QStandardItemModel()
         self.abc_tree_view.setModel(self.model)
         self.set_tree_view()
+        # self.load_abc()
 
         # Create layout and add widgets
         layout = QVBoxLayout()
@@ -44,9 +56,27 @@ class ListAlembic(QDialog):
 
         self.setLayout(layout)
         self.button.clicked.connect(self.load_abc)
+        self.sys_tray()
+
+    def sys_tray(self):
+        icon = QIcon("alembic_logo.png")
+        menu = QMenu()
+        menu.setStyleSheet("color: #dedede; background-color: #212121")
+        settingAction = menu.addAction("Load alembic")
+        settingAction.triggered.connect(self.load_abc)
+        exitAction = menu.addAction("Exit")
+        exitAction.triggered.connect(sys.exit)
+        self.tray = QSystemTrayIcon()
+        self.tray.setIcon(icon)
+        self.tray.setContextMenu(menu)
+        self.tray.show()
+        self.tray.setToolTip("Alembic tree view")
+        self.tray.showMessage("note", "load alembic file")
 
     def set_tree_view(self):
-        # set Tree View
+        '''
+        Set Tree View
+        '''
         self.abc_tree_view.reset()
         self.model.clear()
         self.root = QStandardItem('ABC')
@@ -55,6 +85,9 @@ class ListAlembic(QDialog):
         self.abc_tree_view.expandAll()
 
     def make_tree(self, children, parent):
+        '''
+        Make tree view by dict
+        '''
         for child in children:
             child_item = QStandardItem(child)
             parent.appendRow(child_item)
@@ -62,17 +95,23 @@ class ListAlembic(QDialog):
                 self.make_tree(children[child], child_item)
 
     def load_abc(self):
+        '''
+        GUI for load alembic file
+        '''
         self.alembic_file = QFileDialog.getOpenFileName(
-            self, 'Open *. abc file', '/home/shrimo/Desktop/course/vfx_dev/alembic')[0]
+            self, 'Open *. abc file', '/home/shrimo/Desktop/course/vfx_dev/alembic', filter='*.abc')[0]
+        if not self.alembic_file:
+            self.l1.setText('No file')
+            return
         self.l1.setText(self.alembic_file.split('/')[-1]) 
         self.set_tree_view()
 
 
+
+
 if __name__ == '__main__':
-    # alembic_file = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_list.abc'
-    # print get_abc_tree(alembic_file)
-    app = QApplication(sys.argv)
     # Create and show the ListAlembic
+    app = QApplication(sys.argv)
     list_alembic = ListAlembic()
     list_alembic.show()
     sys.exit(app.exec_())
