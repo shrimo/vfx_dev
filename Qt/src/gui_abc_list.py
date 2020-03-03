@@ -31,6 +31,7 @@ class ListAlembic(QWidget):
     '''
     Create GUI for alembic file tree view
     '''
+
     def __init__(self, parent=None):
         super(ListAlembic, self).__init__(parent)
         # Create widgets
@@ -103,10 +104,8 @@ class ListAlembic(QWidget):
         if not self.alembic_file:
             self.l1.setText('No file')
             return
-        self.l1.setText(self.alembic_file.split('/')[-1]) 
+        self.l1.setText(self.alembic_file.split('/')[-1])
         self.set_tree_view()
-
-
 
 
 if __name__ == '__main__':
