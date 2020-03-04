@@ -35,6 +35,7 @@ class ListAlembic(QWidget):
     def __init__(self, parent=None):
         super(ListAlembic, self).__init__(parent)
         # Create widgets
+        print ('Alembic tree viewer 0.0.1')
         self.resize(300, 500)
         self.setStyleSheet("color: #dedede; background-color: #212121")
         self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
@@ -106,6 +107,9 @@ class ListAlembic(QWidget):
             return
         self.l1.setText(self.alembic_file.split('/')[-1])
         self.set_tree_view()
+
+    def __del__(self): 
+        print ('Exit application')
 
 
 if __name__ == '__main__':

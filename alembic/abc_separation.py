@@ -77,14 +77,15 @@ def copy_object(i_obj, o_obj, animation, root, skip_node):
         #     i_child_name = 'mdl'
         oChild = alembic.Abc.OObject(
             o_obj,
-            i_child_name.lower(),
+            i_child_name,
+            # i_child_name.lower(),
             i_child.getMetaData())
         copy_object(i_child, oChild, animation, root, skip_node)
 
 
 def main():
-    i_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_03_in.abc'
-    o_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_separation_03_out.abc'
+    i_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_list.abc'
+    o_path = '/home/shrimo/Desktop/course/vfx_dev/alembic/abc_list_separation.abc'
 
     if not os.path.isfile(i_path):
         print 'No file:', i_path
@@ -100,8 +101,8 @@ def main():
     i_top = i_archive.getTop()
     root = i_top.getChild(0).getName()
 
-    skip_list = ['pcone1', 'ptorus1']
-    # skip_list = ['pTorus1']
+    # skip_list = ['pcone1', 'ptorus1']
+    skip_list = ['child01']
 
     skip_node_list = []
     for skip in skip_list:
