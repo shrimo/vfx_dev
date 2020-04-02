@@ -19,3 +19,5 @@
 [Python doc ibm](https://www.ibm.com/developerworks/ru/library/l-python_part_1/)
 
 [OpenEXR](https://excamera.com/articles/26/doc/index.html)
+
+[Using Python to access data from an external Database in Nuke](https://www.youtube.com/watch?v=ZTQRoaQ40Gw)
