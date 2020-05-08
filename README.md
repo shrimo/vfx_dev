@@ -21,3 +21,5 @@
 [OpenEXR](https://excamera.com/articles/26/doc/index.html)
 
 [Using Python to access data from an external Database in Nuke](https://www.youtube.com/watch?v=ZTQRoaQ40Gw)
+
+[Nuke pulldown Choice knob](https://stackoverflow.com/questions/56247388/nuke-pulldown-choice-knob-returns-integer-instead-of-string-when-used-getvalue)
