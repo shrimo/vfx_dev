@@ -124,11 +124,8 @@ def copyObject(iObj, oObj, ix, i_list):
 
 
 def main():
-    # iPath = "/fstorage/projects/mavka/sequences/ep0250/ep0250_sh0010/abc/anm/frol-mdl.abc"
-    # iPath = "/fstorage/projects/mavka/sequences/ep0250/ep0250_sh0010/abc/cfx/frol-mdl.abc"
-    # iPath = "/home/v.lavrentev/projects/alembic/abctools/samples.abc"
-    iPath = "/fstorage/projects/mavka/sequences/ep0255/ep0255_sh0050/abc/anm/dressing_table_ar-mdl.abc"
-    oPath = "/home/v.lavrentev/project/samples_out.abc"
+    iPath = "01.abc"
+    oPath = "/home/out/samples_out.abc"
     iArchive = Abc.IArchive(iPath)
     oArchive = Abc.OArchive(oPath)
 
