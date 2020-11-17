@@ -69,13 +69,13 @@ class AbcReplicate(Abc.IArchive):
             self.copyObj(iChild, oChild)
 
 
-pPath = '/home/v.lavrentev/projects/alembic/abc/'
+pPath = '/home/alembic/abc/'
 iFile = []
 iFile.append( pPath + 'hierarchy.abc' )
-iFile.append( '/home/v.lavrentev/projects/alembic/abc/derek/abc/derek-mdl.abc' )
-iFile.append( '/home/v.lavrentev/projects/alembic/AbcMaterial/tree/treeOak.abc' )
-iFile.append( '/home/v.lavrentev/projects/alembic/abc/Alembic_Octopus_Example/alembic_octopus.abc' )
-iFile.append( '/home/v.lavrentev/projects/alembic/AbcMaterial/tree/treePine.abc' )
+iFile.append( 'tree01.abc' )
+iFile.append( 'tree02.abc' )
+iFile.append( 'tree03.abc' )
+iFile.append( 'tree04.abc' )
 oFile = pPath + 'hierarchy_merge.abc'
 
 print iFile[0]
