@@ -23,8 +23,7 @@ def get_abc_tree(i_path):
     '''
     i_archive = alembic.Abc.IArchive(str(i_path))
     i_archive.getTop().getName()
-    tree_dict = abc_tree(i_archive.getTop())
-    return tree_dict
+    return abc_tree(i_archive.getTop())
 
 
 class ListAlembic(QWidget):
