@@ -1,4 +1,4 @@
-# DEPLOY: //bstorage/rep/set/scripts/amg/system/cpp/
+# /cpp/
 PROJECT(lib_loader)
 SET (SRC "lib_loader.cpp")
 
@@ -24,19 +24,19 @@ SET (CMAKE_MODULE_PATH ${AMG_HOME}/cmake)
 
 ## Setup platform specific helper defines build variants
 IF (WIN32)
-    SET (BOOST_ROOT "//fstorage/projects/dev/lib/boost/boost-1.67_msvc_2015")
+    SET (BOOST_ROOT "/lib/boost/boost-1.67_msvc_2015")
     SET (BOOST_INCLUDE_PATH "${BOOST_ROOT}/include")
     SET (BOOST_LIBRARY_PATH "${BOOST_ROOT}/lib")
     SET (BOOST_LIBS
         "boost_python27-vc140-mt-x64-1_67"
         "boost_system-vc140-mt-x64-1_67"
         "boost_filesystem-vc140-mt-x64-1_67")
-    SET (PYTHON_INCLUDE_PATH "//bstorage/rep/set/include/windows/python2.7")
+    SET (PYTHON_INCLUDE_PATH "//include/windows/python2.7")
     # SET (MAYA_LOCATION "/usr/autodesk/maya2018" CACHE STRING "Maya location")
     SET (MAYA_LOCATION "C:/Program Files/Autodesk/maya2018")
     SET (MAYA_INCLUDE_PATH "${MAYA_LOCATION}/include")
     SET (MAYA_LIBRARY_PATH "${MAYA_LOCATION}/lib")
-    SET (EXTRA_LIBRARY_PATH "//bstorage/rep/set/libs/lib_windows/dependencies")
+    SET (EXTRA_LIBRARY_PATH "/libs/lib_windows/dependencies")
     add_definitions (-DWIN32)
     add_definitions (-DBOOST_ALL_NO_LIB)
     add_definitions (-Ox)
@@ -50,7 +50,7 @@ ELSE (WIN32)
         "${BOOST_LIBRARY_PATH}/libboost_filesystem.so.1.69.0")
     SET (PYTHON_INCLUDE_PATH "/usr/autodesk/maya2019/include/python2.7")
     SET (MAYA_LOCATION "/usr/autodesk/maya2019" CACHE STRING "Maya location")
-    # SET (MAYA_LOCATION "//bstorage/rep/cg/autodesk/maya2018.5")
+    # SET (MAYA_LOCATION "/autodesk/maya2018.5")
     SET (MAYA_INCLUDE_PATH "${MAYA_LOCATION}/include")
     SET (MAYA_LIBRARY_PATH "${MAYA_LOCATION}/lib")
     SET (EXTRA_LIBRARY_PATH "/usr/local/lib")   
