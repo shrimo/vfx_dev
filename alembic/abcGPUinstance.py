@@ -4,25 +4,6 @@ import alembic.AbcGeom as AbcGeom
 import alembic.AbcCoreAbstract as AbcCoreAbstract
 import random as rnd
 
-#import sys
-# AMG_SCRIPT_ROOT = '//bstorage/rep/set/scripts'
-# if AMG_SCRIPT_ROOT not in sys.path:
-#     sys.path.append(AMG_SCRIPT_ROOT)
-
-# from amg.system import navigator
-
-# asset_name = 'book_old_a'
-# asset_path = '//bstorage/strg01/mnt/projects/mavka/assets/Prop/grass_a'
-# fields = navigator.fields_from_path(asset_path)
-# cache_path = navigator.path_from_fields(
-#     fields,
-#     data_type='cache_prx',
-#     update={
-#         'asset': asset_name,
-#         'entity': None
-#     })
-#print cache_path
-
 def FloatArrayM44d(floatarray, pointnums):
     ''' 
     convert data floatarray -> m44d
@@ -152,7 +133,7 @@ def copyObject(iObj, oObj, rootName, pPath):
 
 def main():
     # List from asset and pointClouds
-    mainPath = '/home/v.lavrentev/projects/alembic/AbcMaterial/tree/'
+    mainPath = '/home/alembic/AbcMaterial/tree/'
     treeList = ['treeOak.abc', 'treePine.abc', 'treePoplar.abc']
     iPathArray = []
     oPathArray = []
