@@ -15,7 +15,7 @@ symmetry.maya_symmetry()
 from maya import cmds
 import time
 import sys
-module_path = '/home/shrimo/project/amg_system/cpp'
+module_path = '/home/cpp'
 if module_path not in sys.path:
     sys.path.append(module_path)
 import lib_loader
@@ -73,7 +73,7 @@ def maya_symmetry():
   
     start_C_time = time.time()
     # print 1
-    cpp_non_symmetrical = lib_loader.call(shapes_list, lib='/home/shrimo/project/rnd-master/symmetry/symmetry_check',
+    cpp_non_symmetrical = lib_loader.call(shapes_list, lib='/home/symmetry_check',
                                 tolerance=0.0001, func="get_non_symmetrical")
     # print 2
     end_C_time = time.time()
