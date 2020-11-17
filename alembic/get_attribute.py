@@ -19,8 +19,8 @@ def get_attribut(abc_path, node):
     print max_index
         
 
-node = 'flower_e_instance__ambient_2'
-abc_path = '/home/v.lavrentev/project/alembic/abc/ground_lukash_exterior_a_ar-flowers.v002.abc'
+node = 'trunk'
+abc_path = 'tree.abc'
 get_attribut(abc_path, node)
 
 
