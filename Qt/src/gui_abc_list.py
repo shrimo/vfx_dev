@@ -1,3 +1,4 @@
+# Alembic abc tree 
 import sys
 from PySide2.QtCore import *
 from PySide2.QtGui import *
@@ -100,7 +101,7 @@ class ListAlembic(QWidget):
         GUI for load alembic file
         '''
         self.alembic_file = QFileDialog.getOpenFileName(
-            self, 'Open *. abc file', '/home/shrimo/Desktop/course/vfx_dev/alembic', filter='*.abc')[0]
+            self, 'Open *. abc file', '/home', filter='*.abc')[0]
         if not self.alembic_file:
             self.l1.setText('No file')
             return
