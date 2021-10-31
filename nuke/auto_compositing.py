@@ -1,5 +1,7 @@
 # Light group compositing
 
+import nuke
+
 def get_light_group(node):    
     channels = node[0].channels()
     all_layers = list(set([c.split('.')[0] for c in channels]))
@@ -33,9 +35,11 @@ def light_group_comp(node, light_group):
     return True
 
 
-node = nuke.selectedNodes()
-if node:
-    light_group = get_light_group(node)    
-    lg_comp = light_group_comp(node, light_group)
-else:
-    nuke.message('Select node')
+def start():
+    node = nuke.selectedNodes()
+    if node:
+        light_group = get_light_group(node)    
+        lg_comp = light_group_comp(node, light_group)
+    else:
+        nuke.message('Select node')
+        
