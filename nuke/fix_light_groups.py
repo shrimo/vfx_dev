@@ -3,6 +3,20 @@
 # This script automates the process of getting the difference 
 # and recording it into a separate light group.
 
+
+# import sys
+# module_path = '/home/vfx/.nuke'
+# if module_path not in sys.path:
+#     sys.path.append(module_path)
+
+# import auto_compositing
+# reload(auto_compositing)
+# auto_compositing.start()
+
+# add for install
+# nuke.menu('Nuke').addCommand('PipelineTools/fix_light_groups', lambda: fix_light_groups.start())
+# nuke.menu('Nuke').addCommand('PipelineTools/auto_compositing', lambda: auto_compositing.start())
+
 import nuke
 
 def get_light_group(node):    
@@ -28,7 +42,7 @@ def light_group_fix(node, light_group):
     merge_group_start['operation'].setValue('plus')
     merge_group_start['Achannels'].setValue(light_group.pop())
     merge_group_start['Bchannels'].setValue(light_group.pop())
-    merge_group_start['output'].setValue('cd_tmp')    
+    merge_group_start['output'].setValue('cd_tmp')
 
     dot = nuke.createNode('Dot')
     dot.setInput(0, merge_group_start)
